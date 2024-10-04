@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdtTest.LibraryAPI", "EdtTest.LibraryAPI\EdtTest.LibraryAPI.csproj", "{28DA2CD5-35C3-47D5-A334-622019AE2028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdtTest.LibraryAPI", "EdtTest.LibraryAPI\EdtTest.LibraryAPI.csproj", "{28DA2CD5-35C3-47D5-A334-622019AE2028}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdtTest.Data", "EdtTest.Data\EdtTest.Data.csproj", "{C6F8FEB1-80BF-4B51-A2A7-4CAC94489928}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{28DA2CD5-35C3-47D5-A334-622019AE2028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28DA2CD5-35C3-47D5-A334-622019AE2028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28DA2CD5-35C3-47D5-A334-622019AE2028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F8FEB1-80BF-4B51-A2A7-4CAC94489928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F8FEB1-80BF-4B51-A2A7-4CAC94489928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F8FEB1-80BF-4B51-A2A7-4CAC94489928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F8FEB1-80BF-4B51-A2A7-4CAC94489928}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
