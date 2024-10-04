@@ -8,5 +8,7 @@ namespace EdtTest.Data.Models
         public int ID { get; set; }
 
         public string Title { get; set; }
+
+        public string Authors { get; set; }
     }
 }
