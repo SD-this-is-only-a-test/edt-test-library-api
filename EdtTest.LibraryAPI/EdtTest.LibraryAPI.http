@@ -1,0 +1,6 @@
+@EdtTest.LibraryAPI_HostAddress = http://localhost:5018
+
+GET {{EdtTest.LibraryAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
