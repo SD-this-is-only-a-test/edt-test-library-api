@@ -1,4 +1,7 @@
 
+using EdtTest.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace EdtTest.LibraryAPI
 {
     public class Program
@@ -13,6 +16,11 @@ namespace EdtTest.LibraryAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<LibraryContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryContextConnection"));
+            });
 
             var app = builder.Build();
 
