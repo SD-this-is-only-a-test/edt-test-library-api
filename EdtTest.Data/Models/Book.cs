@@ -11,6 +11,8 @@ namespace EdtTest.Data.Models
 
         public string Authors { get; set; }
 
+        public string Description { get; set; }
+
         /// <summary>
         /// The copies which the library has of this book
         /// </summary>
