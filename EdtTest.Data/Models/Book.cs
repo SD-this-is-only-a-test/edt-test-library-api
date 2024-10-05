@@ -10,5 +10,7 @@ namespace EdtTest.Data.Models
         public string Title { get; set; }
 
         public string Authors { get; set; }
+
+        public virtual ICollection<BookCopy> Copies { get; set; }
     }
 }
