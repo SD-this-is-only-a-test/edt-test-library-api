@@ -11,6 +11,9 @@ namespace EdtTest.Data.Models
 
         public string Authors { get; set; }
 
+        /// <summary>
+        /// The copies which the library has of this book
+        /// </summary>
         public virtual ICollection<BookCopy> Copies { get; set; }
     }
 }

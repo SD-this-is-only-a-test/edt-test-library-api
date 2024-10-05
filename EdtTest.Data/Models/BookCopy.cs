@@ -11,6 +11,9 @@ namespace EdtTest.Data.Models
         [ForeignKey(nameof(Book))]
         public int BookID { get; set; }
 
+        /// <summary>
+        /// This is the book of which this is a copy
+        /// </summary>
         public virtual Book Book { get; set; }
     }
 }
