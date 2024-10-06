@@ -8,12 +8,6 @@ namespace EdtTest.Tests.Controllers.Books
 {
     public class GetBooksTests
     {
-        [SetUp]
-        public void SetUp()
-        {
-
-        }
-
         [Test]
         public void Result_IsNot_Null()
         {
