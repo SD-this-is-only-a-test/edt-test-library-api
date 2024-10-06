@@ -18,5 +18,18 @@ namespace EdtTest.Tests.Services.Books
 
             Assert.That(result, Is.Not.Null);
         }
+
+        [Test]
+        public void Service_Throws_Exception_When_Context_Throws_Exception()
+        {
+            var filter = new BookFilter();
+            Mock<LibraryContext> mContext = new Mock<LibraryContext>();
+
+            mContext.Setup(m => m.Books).Throws<Exception>();
+
+            BooksService service = new BooksService(mContext.Object);
+
+            Assert.Throws<Exception>(() => service.FindBooks(filter));
+        }
     }
 }
