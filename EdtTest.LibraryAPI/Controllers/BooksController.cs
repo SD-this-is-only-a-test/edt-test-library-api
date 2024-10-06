@@ -23,6 +23,7 @@ namespace EdtTest.LibraryAPI.Controllers
             }
             catch (Exception serviceError)
             {
+                _logger.LogError(serviceError, "{controller} method {method} failed", nameof(BooksController), nameof(Index));
                 indexResult.Errors = [ "Failed to get books", serviceError.Message ];
             }
 
