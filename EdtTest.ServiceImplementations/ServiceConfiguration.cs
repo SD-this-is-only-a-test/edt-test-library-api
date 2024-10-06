@@ -1,4 +1,6 @@
 ﻿using EdtTest.Data;
+using EdtTest.ServiceImplementations.Services;
+using EdtTest.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,8 @@ namespace EdtTest.ServiceImplementations
             {
                 options.UseSqlServer(configuration.GetConnectionString("LibraryContextConnection"));
             });
+
+            services.AddTransient<IBooksService, BooksService>();
         }
     }
 }
