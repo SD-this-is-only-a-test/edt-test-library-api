@@ -64,11 +64,12 @@ namespace EdtTest.Tests.Controllers.Books
             Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
             Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
             Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+            var formatter = new Func<It.IsAnyType, Exception?, string>((t, e) => string.Empty);
 
-            mLogger.Setup(m => m.LogError(It.IsAny<string?>(), It.IsAny<object?[]>()))
+            mLogger.Setup(m => m.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), formatter))
                 .Callback(() => { isLogged = true; });
 
-            mLoggerFactory.Setup(m => m.CreateLogger<BooksController>()).Returns(mLogger.Object);
+            mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
 
             mBooksService.Setup(m => m.GetBooks()).Throws<Exception>();
 
