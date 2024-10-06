@@ -37,8 +37,14 @@ namespace EdtTest.LibraryAPI.Controllers
         {
             var findBooksResult = new ApiResponse<IEnumerable<Book>>();
 
-            findBooksResult.Errors = [];
-
+            try
+            {
+                _ = _booksService.FindBooks(filter);
+            }
+            catch (Exception ex)
+            {
+                findBooksResult.Errors = [ "Failed to find books", ex.Message ];
+            }
             return findBooksResult;
         }
     }
