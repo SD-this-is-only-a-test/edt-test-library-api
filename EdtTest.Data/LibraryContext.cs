@@ -16,10 +16,10 @@ namespace EdtTest.Data
         {
         }
 
-        public DbSet<Book> Books { get; set; }
-        public DbSet<BookCopy> BookCopies { get; set; }
-        public DbSet<BookLoan> BookLoans { get; set; }
-        public DbSet<LibraryMember> Members { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<BookCopy> BookCopies { get; set; }
+        public virtual DbSet<BookLoan> BookLoans { get; set; }
+        public virtual DbSet<LibraryMember> Members { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
