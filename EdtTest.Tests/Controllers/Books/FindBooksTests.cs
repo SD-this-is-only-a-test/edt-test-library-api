@@ -61,5 +61,28 @@ namespace EdtTest.Tests.Controllers.Books
 
             CollectionAssert.Contains(result.Errors, errorMessage);
         }
+
+        [Test]
+        public void Error_IsLogged_When_BookService_Throws_Error()
+        {
+            var filter = new BookFilter();
+            bool isLogged = false;
+            Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
+            Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
+            Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+
+            mLogger.Setup(m => m.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), (Func<object, Exception?, string>)It.IsAny<object>()))
+                .Callback(() => { isLogged = true; });
+
+            mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
+
+            mBooksService.Setup(m => m.FindBooks(It.IsAny<BookFilter>())).Throws<Exception>();
+
+            var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
+
+            _ = controller.FindBooks(filter);
+
+            Assert.That(isLogged, Is.True);
+        }
     }
 }
