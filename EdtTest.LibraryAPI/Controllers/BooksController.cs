@@ -52,7 +52,19 @@ namespace EdtTest.LibraryAPI.Controllers
         [HttpPost]
         public ApiResponse<Book> CreateBook(CreateBookRequest request)
         {
-            throw new NotImplementedException();
+            var createBookResult = new ApiResponse<Book>();
+
+            try
+            {
+                createBookResult.Data = _booksService.CreateBook(request.Title, request.Authors, request.Description, request.AddCopy);
+            }
+            catch (Exception serviceError)
+            {
+                _logger.LogError(serviceError, "{controller} method {method} failed", nameof(BooksController), nameof(CreateBook));
+                createBookResult.Errors = [ "Failed to create a new book", serviceError.Message ];
+            }
+
+            return createBookResult;
         }
     }
 }
