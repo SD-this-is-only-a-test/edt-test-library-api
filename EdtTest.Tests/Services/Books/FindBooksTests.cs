@@ -36,5 +36,11 @@ namespace EdtTest.Tests.Services.Books
 
             Assert.Throws<Exception>(() => service.FindBooks(filter));
         }
+
+        [Test]
+        public void Results_Excludes_BooksWithCopiesOnLoan()
+        {
+            Assert.Fail("We don't have an association between copies and loans!");
+        }
     }
 }
