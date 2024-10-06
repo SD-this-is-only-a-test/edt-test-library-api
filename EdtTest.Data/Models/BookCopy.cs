@@ -15,5 +15,10 @@ namespace EdtTest.Data.Models
         /// This is the book of which this is a copy
         /// </summary>
         public virtual Book Book { get; set; }
+
+        /// <summary>
+        /// Loans of this book copy
+        /// </summary>
+        public virtual ICollection<BookLoan> Loans { get; set; }
     }
 }
