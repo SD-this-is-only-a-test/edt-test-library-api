@@ -13,7 +13,7 @@ namespace EdtTest.LibraryAPI.Controllers
 
         private readonly IBooksService _booksService = booksService;
 
-        [HttpGet(Name = "GetBooks")]
+        [HttpGet, Route("GetBooks")]
         public ApiResponse<IEnumerable<Book>> Index()
         {
             var indexResult = new ApiResponse<IEnumerable<Book>>();
