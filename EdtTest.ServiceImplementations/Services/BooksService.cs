@@ -9,6 +9,20 @@ namespace EdtTest.ServiceImplementations.Services
     {
         private readonly LibraryContext _context = context;
 
+        public Book CreateBook(string title, string authors, string description, bool addCopy)
+        {
+            var book = new Book { Authors = authors, Description = description, Title = title };
+
+            if (addCopy)
+                book.Copies = [ new BookCopy { Book = book } ];
+
+            _context.Books.Add(book);
+
+            _context.SaveChanges();
+
+            return _context.Books.Single(b => b.ID == book.ID);
+        }
+
         public IEnumerable<Book> FindBooks(BookFilter filter)
         {
             return _context.Books.Where(b => 
