@@ -35,7 +35,9 @@ namespace EdtTest.LibraryAPI.Controllers
         [HttpPost]
         public ApiResponse<IEnumerable<Book>> FindBooks(BookFilter filter)
         {
-            throw new NotImplementedException();
+            var findBooksResult = new ApiResponse<IEnumerable<Book>>();
+
+            return findBooksResult;
         }
     }
 }
