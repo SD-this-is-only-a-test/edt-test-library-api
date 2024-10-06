@@ -6,7 +6,7 @@ using Moq;
 
 namespace EdtTest.Tests.Controllers.Books
 {
-    public class IndexTests
+    public class GetBooksTests
     {
         [SetUp]
         public void SetUp()
@@ -22,7 +22,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
 
-            var result = controller.Index();
+            var result = controller.GetBooks();
 
             Assert.That(result, Is.Not.Null);
         }
@@ -41,7 +41,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
 
-            var result = controller.Index();
+            var result = controller.GetBooks();
 
             Assert.That(result.Errors, Is.Not.Null);
         }
@@ -63,7 +63,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
 
-            var result = controller.Index();
+            var result = controller.GetBooks();
 
             CollectionAssert.Contains(result.Errors, errorMessage);
         }
@@ -85,7 +85,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
 
-            _ = controller.Index();
+            _ = controller.GetBooks();
 
             Assert.That(isLogged, Is.True);
         }
@@ -105,7 +105,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
 
-            var result = controller.Index();
+            var result = controller.GetBooks();
 
             CollectionAssert.AreEqual(books, result.Data);
         }

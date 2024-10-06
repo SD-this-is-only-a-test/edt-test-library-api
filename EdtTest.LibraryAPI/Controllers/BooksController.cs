@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace EdtTest.LibraryAPI.Controllers
 {
     [ApiController]
-    [Route("[Controller]")]
+    [Route("[Controller]/[action]")]
     public class BooksController(ILoggerFactory loggerFactory, IBooksService booksService) : ControllerBase
     {
         private readonly ILogger _logger = loggerFactory.CreateLogger<BooksController>();
 
         private readonly IBooksService _booksService = booksService;
 
-        [HttpGet, Route("GetBooks")]
-        public ApiResponse<IEnumerable<Book>> Index()
+        [HttpGet]
+        public ApiResponse<IEnumerable<Book>> GetBooks()
         {
             var indexResult = new ApiResponse<IEnumerable<Book>>();
 
@@ -24,7 +24,7 @@ namespace EdtTest.LibraryAPI.Controllers
             }
             catch (Exception serviceError)
             {
-                _logger.LogError(serviceError, "{controller} method {method} failed", nameof(BooksController), nameof(Index));
+                _logger.LogError(serviceError, "{controller} method {method} failed", nameof(BooksController), nameof(GetBooks));
                 indexResult.Errors = [ "Failed to get books", serviceError.Message ];
             }
 
