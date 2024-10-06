@@ -17,6 +17,15 @@ namespace EdtTest.LibraryAPI.Controllers
         {
             var indexResult = new ApiResponse<IEnumerable<Book>>();
 
+            try
+            {
+                _ = _booksService.GetBooks();
+            }
+            catch (Exception)
+            {
+                indexResult.Errors = [ "Failed to get books" ];
+            }
+
             return indexResult;
         }
     }
