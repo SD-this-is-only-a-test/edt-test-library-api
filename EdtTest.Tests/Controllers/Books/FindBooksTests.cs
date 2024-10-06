@@ -1,4 +1,5 @@
 ﻿using EdtTest.Data.Filters;
+using EdtTest.Data.Models;
 using EdtTest.LibraryAPI.Controllers;
 using EdtTest.Services;
 using Microsoft.Extensions.Logging;
@@ -83,6 +84,27 @@ namespace EdtTest.Tests.Controllers.Books
             _ = controller.FindBooks(filter);
 
             Assert.That(isLogged, Is.True);
+        }
+
+        [Test]
+        public void ResultData_Is_BooksServiceResult()
+        {
+            var filter = new BookFilter();
+            Book[] books =
+            [
+                new Book(){ ID = 1, Title = "Title 1", Authors = "Author1, Author1-2" },
+                new Book(){ ID = 2, Title = "Title 2", Authors = "Author2" }
+            ];
+            Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
+            Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+
+            mBooksService.Setup(m => m.FindBooks(It.IsAny<BookFilter>())).Returns(() => books);
+
+            var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
+
+            var result = controller.FindBooks(filter);
+
+            CollectionAssert.AreEqual(books, result.Data);
         }
     }
 }
