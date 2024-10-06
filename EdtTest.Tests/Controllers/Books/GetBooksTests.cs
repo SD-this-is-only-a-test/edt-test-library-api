@@ -51,8 +51,6 @@ namespace EdtTest.Tests.Controllers.Books
 
             mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
 
-            mBooksService.Setup(m => m.GetBooks()).Throws<Exception>();
-
             mBooksService.Setup(m => m.GetBooks()).Throws(new Exception(errorMessage));
 
             var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
