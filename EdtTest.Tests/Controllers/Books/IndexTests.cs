@@ -29,8 +29,12 @@ namespace EdtTest.Tests.Controllers.Books
         [Test]
         public void ResultErrors_IsNot_Null_When_BookService_Throws_Error()
         {
+            Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
             Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
             Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+            var formatter = new Func<It.IsAnyType, Exception?, string>((t, e) => string.Empty);
+
+            mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
 
             mBooksService.Setup(m => m.GetBooks()).Throws<Exception>();
 
@@ -44,9 +48,15 @@ namespace EdtTest.Tests.Controllers.Books
         [Test]
         public void ResultErrors_Contains_ErrorMessage_When_BookService_Throws_Error()
         {
+            Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
             Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
             Mock<IBooksService> mBooksService = new Mock<IBooksService>();
             string errorMessage = $"Book service error {DateTime.Now.Ticks}";
+            var formatter = new Func<It.IsAnyType, Exception?, string>((t, e) => string.Empty);
+
+            mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
+
+            mBooksService.Setup(m => m.GetBooks()).Throws<Exception>();
 
             mBooksService.Setup(m => m.GetBooks()).Throws(new Exception(errorMessage));
 
@@ -64,9 +74,8 @@ namespace EdtTest.Tests.Controllers.Books
             Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
             Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
             Mock<IBooksService> mBooksService = new Mock<IBooksService>();
-            var formatter = new Func<It.IsAnyType, Exception?, string>((t, e) => string.Empty);
 
-            mLogger.Setup(m => m.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), formatter))
+            mLogger.Setup(m => m.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), (Func<object, Exception?, string>)It.IsAny<object>()))
                 .Callback(() => { isLogged = true; });
 
             mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
