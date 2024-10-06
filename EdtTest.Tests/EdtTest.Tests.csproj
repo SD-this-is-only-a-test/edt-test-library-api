@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EdtTest.LibraryAPI\EdtTest.LibraryAPI.csproj" />
+    <ProjectReference Include="..\EdtTest.Services\EdtTest.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
