@@ -1,6 +1,8 @@
 ﻿using EdtTest.Data;
 using EdtTest.Data.Filters;
+using EdtTest.Data.Models;
 using EdtTest.ServiceImplementations.Services;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace EdtTest.Tests.Services.Books
@@ -10,9 +12,12 @@ namespace EdtTest.Tests.Services.Books
         [Test]
         public void ServiceResult_IsNot_Null()
         {
-            Mock<LibraryContext> mContext = new Mock<LibraryContext>();
-            BooksService service = new BooksService(mContext.Object);
             var filter = new BookFilter();
+            Mock<LibraryContext> mContext = new Mock<LibraryContext>();
+
+            mContext.Setup(m => m.Books).Returns(Mock.Of<DbSet<Book>>());
+
+            BooksService service = new BooksService(mContext.Object);
 
             var result = service.FindBooks(filter);
 
