@@ -40,7 +40,35 @@ namespace EdtTest.Tests.Services.Books
         [Test]
         public void Results_Excludes_BooksWithCopiesOnLoan()
         {
-            Assert.Fail("We don't have an association between copies and loans!");
+            Book bookOnLoan = new Book()
+            {
+                Title = "BookA",
+                Authors = "AuthorA",
+                ID = 1,
+                Copies = [
+                    new BookCopy() {
+                        ID = 1,
+                        BookID = 1,
+                        Loans = [
+                            new BookLoan() {
+                                ID = 1,
+                                CopyID = 1,
+                                MemberID = 1,
+                                ReturnByDate = DateTime.Now.AddDays(7),
+                                ReturnedDate = null
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            Book[] books = [
+                bookOnLoan,
+                new Book { ID = 2, Title = "BookB", Authors = "AuthorA", Copies = [ new BookCopy { ID = 2, BookID = 2, Loans = [] } ] },
+                new Book { ID = 3, Title = "BookC", Authors = "AuthorC", Copies = [ new BookCopy {  ID = 3, BookID = 3, Loans = [ new BookLoan { ID = 2, CopyID = 3, MemberID = 1, ReturnByDate = DateTime.Now.AddDays(-7), ReturnedDate = DateTime.Now.AddDays(-8)}] }]}
+            ];
+
+            Assert.Fail("Still building test");
         }
     }
 }
