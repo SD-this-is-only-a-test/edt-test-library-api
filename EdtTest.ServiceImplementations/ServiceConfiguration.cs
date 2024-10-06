@@ -7,11 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EdtTest.ServiceImplementations
 {
-    /// <summary>
-    /// This will contain an extension method or methods for setting up all of our service implementations.
-    /// </summary>
     public static class ServiceConfiguration
     {
+        /// <summary>
+        /// Configures service implementations and requirements for the application.
+        /// </summary>
+        /// <param name="services">The service collection to set up.</param>
+        /// <param name="configuration">The configuration to use.</param>
         public static void ConfigureServiceImplementations(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<LibraryContext>(options =>
