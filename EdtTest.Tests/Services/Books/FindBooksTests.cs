@@ -85,6 +85,54 @@ namespace EdtTest.Tests.Services.Books
             CollectionAssert.DoesNotContain(serviceResult, bookOnLoan);
         }
 
+        [Test]
+        public void Result_Includes_AllCopies()
+        {
+            Book bookOnLoan = new Book()
+            {
+                Title = "BookA",
+                Authors = "AuthorA",
+                ID = 1,
+                Copies = [
+                    new BookCopy() {
+                        ID = 1,
+                        BookID = 1,
+                        Loans = [
+                            new BookLoan() {
+                                ID = 1,
+                                CopyID = 1,
+                                MemberID = 1,
+                                ReturnByDate = DateTime.Now.AddDays(7),
+                                ReturnedDate = null
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            Book[] books =
+            [
+                bookOnLoan,
+                // this book has never been on loan
+                new Book { ID = 2, Title = "BookB", Authors = "AuthorA", Copies = [ new BookCopy { ID = 2, BookID = 2, Loans = [] } ] },
+                // this book has been on loan but has been returned
+                new Book { ID = 3, Title = "BookC", Authors = "AuthorC", Copies = [ new BookCopy {  ID = 3, BookID = 3, Loans = [ new BookLoan { ID = 2, CopyID = 3, MemberID = 1, ReturnByDate = DateTime.Now.AddDays(-7), ReturnedDate = DateTime.Now.AddDays(-8)}] }]}
+            ];
+
+
+            var filter = new BookFilter { AvailableForLoanOnly = false };
+            var dbSet = GetDbSet(books);
+            Mock<LibraryContext> mContext = new Mock<LibraryContext>();
+
+            mContext.Setup(c => c.Books).Returns(dbSet);
+
+            BooksService service = new BooksService(mContext.Object);
+
+            var serviceResult = service.FindBooks(filter);
+
+            CollectionAssert.AreEquivalent(serviceResult, books);
+        }
+
         private static DbSet<Book> GetDbSet(params Book[] books)
         {
             var booksQueryable = books.AsQueryable();
