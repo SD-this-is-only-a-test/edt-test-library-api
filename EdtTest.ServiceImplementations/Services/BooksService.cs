@@ -1,8 +1,8 @@
-﻿using EdtTest.Data;
-using EdtTest.Data.Models;
+﻿using EdtTest.Data.Models;
+using EdtTest.Data;
 using EdtTest.Services;
 
-namespace EdtTest.ServiceImplementations
+namespace EdtTest.ServiceImplementations.Services
 {
     public class BooksService(LibraryContext context) : IBooksService
     {
