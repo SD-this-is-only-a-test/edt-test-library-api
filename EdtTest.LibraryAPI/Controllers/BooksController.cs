@@ -39,7 +39,7 @@ namespace EdtTest.LibraryAPI.Controllers
 
             try
             {
-                _ = _booksService.FindBooks(filter);
+                findBooksResult.Data = _booksService.FindBooks(filter);
             }
             catch (Exception serviceError)
             {
