@@ -40,5 +40,26 @@ namespace EdtTest.Tests.Controllers.Books
 
             Assert.That(result.Errors, Is.Not.Null);
         }
+
+        [Test]
+        public void ResultErrors_Contains_ErrorMessage_When_BookService_Throws_Error()
+        {
+            var filter = new BookFilter();
+            Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
+            Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
+            Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+            string errorMessage = $"Book service error {DateTime.Now.Ticks}";
+            var formatter = new Func<It.IsAnyType, Exception?, string>((t, e) => string.Empty);
+
+            mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
+
+            mBooksService.Setup(m => m.FindBooks(It.IsAny<BookFilter>())).Throws(new Exception(errorMessage));
+
+            var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
+
+            var result = controller.FindBooks(filter);
+
+            CollectionAssert.Contains(result.Errors, errorMessage);
+        }
     }
 }
