@@ -31,6 +31,21 @@ namespace EdtTest.Tests.Controllers.Books
         {
             Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
             Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+
+            mBooksService.Setup(m => m.GetBooks()).Throws<Exception>();
+
+            var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
+
+            var result = controller.Index();
+
+            Assert.That(result.Errors, Is.Not.Null);
+        }
+
+        [Test]
+        public void ResultErrors_Contains_ErrorMessage_When_BookService_Throws_Error()
+        {
+            Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
+            Mock<IBooksService> mBooksService = new Mock<IBooksService>();
             string errorMessage = $"Book service error {DateTime.Now.Ticks}";
 
             mBooksService.Setup(m => m.GetBooks()).Throws(new Exception(errorMessage));
@@ -39,7 +54,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var result = controller.Index();
 
-            Assert.That(result.Errors, Is.Not.Null);
+            CollectionAssert.Contains(errorMessage, result.Errors);
         }
     }
 }
