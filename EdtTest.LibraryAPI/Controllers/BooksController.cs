@@ -10,6 +10,8 @@ namespace EdtTest.LibraryAPI.Controllers
     {
         private readonly ILogger _logger = loggerFactory.CreateLogger<BooksController>();
 
+        private readonly IBooksService _booksService = booksService;
+
         public IEnumerable<Book> Index()
         {
             throw new NotImplementedException();
