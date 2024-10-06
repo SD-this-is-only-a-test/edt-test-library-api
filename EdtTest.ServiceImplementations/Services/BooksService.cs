@@ -10,7 +10,7 @@ namespace EdtTest.ServiceImplementations.Services
 
         public IEnumerable<Book> GetBooks()
         {
-            throw new NotImplementedException();
+            return _context.Books.OrderBy(b => b.Title).ThenBy(b => b.Authors);
         }
     }
 }
