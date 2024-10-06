@@ -62,32 +62,40 @@ namespace EdtTest.Tests.Services.Books
                 ]
             };
 
-            var books = new Book[]
-            {
+            Book[] books =
+            [
                 bookOnLoan,
                 // this book has never been on loan
                 new Book { ID = 2, Title = "BookB", Authors = "AuthorA", Copies = [ new BookCopy { ID = 2, BookID = 2, Loans = [] } ] },
                 // this book has been on loan but has been returned
                 new Book { ID = 3, Title = "BookC", Authors = "AuthorC", Copies = [ new BookCopy {  ID = 3, BookID = 3, Loans = [ new BookLoan { ID = 2, CopyID = 3, MemberID = 1, ReturnByDate = DateTime.Now.AddDays(-7), ReturnedDate = DateTime.Now.AddDays(-8)}] }]}
-            }.AsQueryable();
+            ];
 
 
             var filter = new BookFilter { AvailableForLoanOnly = true };
-            Mock<DbSet<Book>> mBooks = new Mock<DbSet<Book>>();
+            var dbSet = GetDbSet(books);
             Mock<LibraryContext> mContext = new Mock<LibraryContext>();
 
-            mBooks.As<IQueryable<Book>>().Setup(b => b.Provider).Returns(books.Provider);
-            mBooks.As<IQueryable<Book>>().Setup(b => b.Expression).Returns(books.Expression);
-            mBooks.As<IQueryable<Book>>().Setup(b => b.ElementType).Returns(books.ElementType);
-            mBooks.As<IQueryable<Book>>().Setup(b => b.GetEnumerator()).Returns(books.GetEnumerator());
-
-            mContext.Setup(c => c.Books).Returns(mBooks.Object);
+            mContext.Setup(c => c.Books).Returns(dbSet);
 
             BooksService service = new BooksService(mContext.Object);
 
             var serviceResult = service.FindBooks(filter);
 
             CollectionAssert.DoesNotContain(serviceResult, bookOnLoan);
+        }
+
+        private static DbSet<Book> GetDbSet(params Book[] books)
+        {
+            var booksQueryable = books.AsQueryable();
+            Mock<DbSet<Book>> mBooks = new Mock<DbSet<Book>>();
+
+            mBooks.As<IQueryable<Book>>().Setup(b => b.Provider).Returns(booksQueryable.Provider);
+            mBooks.As<IQueryable<Book>>().Setup(b => b.Expression).Returns(booksQueryable.Expression);
+            mBooks.As<IQueryable<Book>>().Setup(b => b.ElementType).Returns(booksQueryable.ElementType);
+            mBooks.As<IQueryable<Book>>().Setup(b => b.GetEnumerator()).Returns(booksQueryable.GetEnumerator());
+
+            return mBooks.Object;
         }
     }
 }
