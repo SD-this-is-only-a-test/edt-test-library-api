@@ -11,7 +11,10 @@ namespace EdtTest.ServiceImplementations.Services
 
         public IEnumerable<Book> FindBooks(BookFilter filter)
         {
-            return _context.Books.Where(b => b.Copies.All(c => c.Loans.Count == 0 || c.Loans.All(l => l.ReturnedDate != null && l.ReturnedDate <= DateTime.Now)));
+            return _context.Books.Where(b => 
+                !filter.AvailableForLoanOnly || 
+                b.Copies.All(c => c.Loans.Count == 0 || c.Loans.All(l => l.ReturnedDate != null && l.ReturnedDate <= DateTime.Now))
+            );
         }
 
         public IEnumerable<Book> GetBooks()
