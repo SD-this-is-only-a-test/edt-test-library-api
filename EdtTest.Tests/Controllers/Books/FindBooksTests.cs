@@ -20,5 +20,25 @@ namespace EdtTest.Tests.Controllers.Books
 
             Assert.That(result, Is.Not.Null);
         }
+
+        [Test]
+        public void ResultErrors_IsNot_Null_When_BookService_Throws_Error()
+        {
+            var filter = new BookFilter();
+            Mock<ILogger<BooksController>> mLogger = new Mock<ILogger<BooksController>>();
+            Mock<ILoggerFactory> mLoggerFactory = new Mock<ILoggerFactory>();
+            Mock<IBooksService> mBooksService = new Mock<IBooksService>();
+            var formatter = new Func<It.IsAnyType, Exception?, string>((t, e) => string.Empty);
+
+            mLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>())).Returns(mLogger.Object);
+
+            mBooksService.Setup(m => m.FindBooks(It.IsAny<BookFilter>())).Throws<Exception>();
+
+            var controller = new BooksController(mLoggerFactory.Object, mBooksService.Object);
+
+            var result = controller.FindBooks(filter);
+
+            Assert.That(result.Errors, Is.Not.Null);
+        }
     }
 }
