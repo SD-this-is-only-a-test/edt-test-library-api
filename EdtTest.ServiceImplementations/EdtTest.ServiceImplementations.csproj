@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EdtTest.Data\EdtTest.Data.csproj" />
+    <ProjectReference Include="..\EdtTest.Services\EdtTest.Services.csproj" />
+  </ItemGroup>
+
 </Project>
