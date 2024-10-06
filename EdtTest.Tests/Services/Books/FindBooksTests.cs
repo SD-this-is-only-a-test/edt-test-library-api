@@ -133,6 +133,29 @@ namespace EdtTest.Tests.Services.Books
             CollectionAssert.AreEquivalent(serviceResult, books);
         }
 
+        [Test]
+        public void Result_Excludes_BooksWithoutCopies_When_Available_Is_True()
+        {
+            var filter = new BookFilter { AvailableForLoanOnly = true };
+            // this book has no copies so cannot be loaned out
+            var bookWithoutCopies = new Book { ID = 1, Authors = "AuthorA", Title = "TitleA", Copies = [] };
+            Book[] books = [
+                bookWithoutCopies,
+                // this book has 1 copy with no loans and should be in results
+                new Book { ID = 2, Authors = "AuthorB", Title = "TitleB", Copies = [ new BookCopy { ID = 1, BookID = 2, Loans = [] }]},
+            ];
+            var dbSet = GetDbSet(books);
+            Mock<LibraryContext> mContext = new Mock<LibraryContext>();
+
+            mContext.Setup(c => c.Books).Returns(dbSet);
+
+            BooksService service = new BooksService(mContext.Object);
+
+            var serviceResult = service.FindBooks(filter);
+
+            CollectionAssert.DoesNotContain(serviceResult, bookWithoutCopies);
+        }
+
         private static DbSet<Book> GetDbSet(params Book[] books)
         {
             var booksQueryable = books.AsQueryable();
