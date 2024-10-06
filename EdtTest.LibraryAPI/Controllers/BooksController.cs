@@ -15,7 +15,9 @@ namespace EdtTest.LibraryAPI.Controllers
 
         public ApiResponse<IEnumerable<Book>> Index()
         {
-            throw new NotImplementedException();
+            var indexResult = new ApiResponse<IEnumerable<Book>>();
+
+            return indexResult;
         }
     }
 }
