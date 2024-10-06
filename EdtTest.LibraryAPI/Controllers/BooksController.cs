@@ -1,4 +1,5 @@
-﻿using EdtTest.Data.Models;
+﻿using EdtTest.Data.Filters;
+using EdtTest.Data.Models;
 using EdtTest.LibraryAPI.Models;
 using EdtTest.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,12 @@ namespace EdtTest.LibraryAPI.Controllers
             }
 
             return indexResult;
+        }
+
+        [HttpPost]
+        public ApiResponse<IEnumerable<Book>> FindBooks(BookFilter filter)
+        {
+            throw new NotImplementedException();
         }
     }
 }
