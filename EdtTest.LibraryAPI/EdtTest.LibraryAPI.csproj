@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EdtTest.Data\EdtTest.Data.csproj" />
+    <ProjectReference Include="..\EdtTest.ServiceImplementations\EdtTest.ServiceImplementations.csproj" />
     <ProjectReference Include="..\EdtTest.Services\EdtTest.Services.csproj" />
   </ItemGroup>
 

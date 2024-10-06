@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using EdtTest.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EdtTest.ServiceImplementations
@@ -10,7 +12,10 @@ namespace EdtTest.ServiceImplementations
     {
         public static void ConfigureServiceImplementations(this IServiceCollection services, IConfiguration configuration)
         {
-
+            services.AddDbContext<LibraryContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("LibraryContextConnection"));
+            });
         }
     }
 }

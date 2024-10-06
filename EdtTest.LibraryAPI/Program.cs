@@ -1,6 +1,4 @@
-
-using EdtTest.Data;
-using Microsoft.EntityFrameworkCore;
+using EdtTest.ServiceImplementations;
 
 namespace EdtTest.LibraryAPI
 {
@@ -17,10 +15,7 @@ namespace EdtTest.LibraryAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<LibraryContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryContextConnection"));
-            });
+            builder.Services.ConfigureServiceImplementations(builder.Configuration);
 
             var app = builder.Build();
 
