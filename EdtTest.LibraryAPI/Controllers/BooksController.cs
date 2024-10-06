@@ -21,9 +21,9 @@ namespace EdtTest.LibraryAPI.Controllers
             {
                 _ = _booksService.GetBooks();
             }
-            catch (Exception)
+            catch (Exception serviceError)
             {
-                indexResult.Errors = [ "Failed to get books" ];
+                indexResult.Errors = [ "Failed to get books", serviceError.Message ];
             }
 
             return indexResult;
