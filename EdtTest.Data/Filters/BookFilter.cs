@@ -2,6 +2,6 @@
 {
     public class BookFilter
     {
-
+        public bool AvailableForLoanOnly { get; set; }
     }
 }
