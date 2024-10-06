@@ -13,7 +13,10 @@ namespace EdtTest.ServiceImplementations.Services
         {
             return _context.Books.Where(b => 
                 !filter.AvailableForLoanOnly || 
-                b.Copies.All(c => c.Loans.Count == 0 || c.Loans.All(l => l.ReturnedDate != null && l.ReturnedDate <= DateTime.Now))
+                (
+                    b.Copies.Count > 0 &&
+                    b.Copies.All(c => c.Loans.Count == 0 || c.Loans.All(l => l.ReturnedDate != null && l.ReturnedDate <= DateTime.Now))
+                )
             );
         }
 
