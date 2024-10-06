@@ -48,5 +48,11 @@ namespace EdtTest.LibraryAPI.Controllers
             }
             return findBooksResult;
         }
+
+        [HttpPost]
+        public ApiResponse<Book> CreateBook(CreateBookRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
