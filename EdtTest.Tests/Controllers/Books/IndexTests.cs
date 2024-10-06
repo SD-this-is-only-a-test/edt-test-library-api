@@ -54,7 +54,7 @@ namespace EdtTest.Tests.Controllers.Books
 
             var result = controller.Index();
 
-            CollectionAssert.Contains(errorMessage, result.Errors);
+            CollectionAssert.Contains(result.Errors, errorMessage);
         }
     }
 }
