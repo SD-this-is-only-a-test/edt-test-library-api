@@ -1,6 +1,8 @@
-﻿namespace EdtTest.ServiceImplementations
+﻿using EdtTest.Services;
+
+namespace EdtTest.ServiceImplementations
 {
-    public class BooksService
+    public class BooksService : IBooksService
     {
 
     }
