@@ -19,7 +19,7 @@ namespace EdtTest.LibraryAPI.Controllers
 
             try
             {
-                _ = _booksService.GetBooks();
+                indexResult.Data = _booksService.GetBooks();
             }
             catch (Exception serviceError)
             {
