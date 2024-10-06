@@ -41,9 +41,10 @@ namespace EdtTest.LibraryAPI.Controllers
             {
                 _ = _booksService.FindBooks(filter);
             }
-            catch (Exception ex)
+            catch (Exception serviceError)
             {
-                findBooksResult.Errors = [ "Failed to find books", ex.Message ];
+                _logger.LogError(serviceError, "{controller} method {method} failed", nameof(BooksController), nameof(FindBooks));
+                findBooksResult.Errors = [ "Failed to find books", serviceError.Message ];
             }
             return findBooksResult;
         }
