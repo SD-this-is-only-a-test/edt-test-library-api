@@ -15,7 +15,7 @@ namespace EdtTest.Tests.Services.Books
             var filter = new BookFilter();
             Mock<LibraryContext> mContext = new Mock<LibraryContext>();
 
-            mContext.Setup(m => m.Books).Returns(Mock.Of<DbSet<Book>>());
+            mContext.Setup(m => m.Books).Returns(GetDbSet());
 
             BooksService service = new BooksService(mContext.Object);
 
