@@ -1,4 +1,5 @@
 ﻿using EdtTest.Data.Models;
+using EdtTest.LibraryAPI.Models;
 using EdtTest.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace EdtTest.LibraryAPI.Controllers
 
         private readonly IBooksService _booksService = booksService;
 
-        public IEnumerable<Book> Index()
+        public ApiResponse<IEnumerable<Book>> Index()
         {
             throw new NotImplementedException();
         }
