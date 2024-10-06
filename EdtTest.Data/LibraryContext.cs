@@ -5,6 +5,12 @@ namespace EdtTest.Data
 {
     public class LibraryContext : DbContext
     {
+        public LibraryContext()
+        : base()
+        {
+
+        }
+
         public LibraryContext(DbContextOptions<LibraryContext> options)
         : base(options)
         {
