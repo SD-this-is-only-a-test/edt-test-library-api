@@ -11,7 +11,7 @@ namespace EdtTest.ServiceImplementations.Services
 
         public IEnumerable<Book> FindBooks(BookFilter filter)
         {
-            return [];
+            return _context.Books;
         }
 
         public IEnumerable<Book> GetBooks()
