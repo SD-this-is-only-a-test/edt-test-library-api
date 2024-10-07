@@ -20,7 +20,7 @@ namespace EdtTest.ServiceImplementations.Services
 
             _context.SaveChanges();
 
-            return _context.Books.Single(b => b.ID == book.ID);
+            return book;
         }
 
         public IEnumerable<Book> FindBooks(BookFilter filter)
