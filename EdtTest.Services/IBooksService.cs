@@ -30,6 +30,15 @@ namespace EdtTest.Services
         /// <returns>The newly created book</returns>
         /// <exception cref="Exception">Thrown when saving the new entity fails.</exception>
         Book CreateBook(string title, string authors, string description, bool addCopy);
+        
+        /// <summary>
+        /// Create a copy of an existing book.
+        /// </summary>
+        /// <param name="bookId">The ID of the book to create a copy of.</param>
+        /// <returns>The newly created book copy.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when checking the book ID fails.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no book with the specified ID exists.</exception>
+        /// <exception cref="Exception">Thrown when saving the new entity fails.</exception>
         BookCopy CreateBookCopy(int bookId);
     }
 }
