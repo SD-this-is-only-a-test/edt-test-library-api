@@ -31,6 +31,11 @@ namespace EdtTest.ServiceImplementations.Services
             return book;
         }
 
+        public BookCopy CreateBookCopy(int bookID)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Book> FindBooks(BookFilter filter)
         {
             try
