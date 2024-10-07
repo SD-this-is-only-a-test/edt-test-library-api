@@ -14,6 +14,7 @@ namespace EdtTest.LibraryAPI.Controllers
 
         private readonly IBookLoansService _bookLoansService = bookLoansService;
 
+        [HttpPost]
         public ApiResponse<BookLoan> StartLoan(StartLoanRequest request)
         {
             var startLoanResult = new ApiResponse<BookLoan>();
@@ -31,6 +32,7 @@ namespace EdtTest.LibraryAPI.Controllers
             return startLoanResult;
         }
 
+        [HttpPost]
         public ApiResponse<BookLoan> EndLoan(EndLoanRequest request)
         {
             var endLoanResult = new ApiResponse<BookLoan>();
@@ -48,6 +50,7 @@ namespace EdtTest.LibraryAPI.Controllers
             return endLoanResult;
         }
 
+        [HttpPost]
         public ApiResponse<IEnumerable<BookLoan>> FindLoans(BookLoanFilter filter)
         {
             var findLoansResult = new ApiResponse<IEnumerable<BookLoan>>();
