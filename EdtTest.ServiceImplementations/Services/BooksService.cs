@@ -33,7 +33,35 @@ namespace EdtTest.ServiceImplementations.Services
 
         public BookCopy CreateBookCopy(int bookId)
         {
-            throw new NotImplementedException();
+            bool bookExists;
+            BookCopy bookCopy;
+
+            try
+            {
+                bookExists = _context.Books.Any(b => b.ID == bookId);
+            }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
+
+            if (!bookExists)
+                throw new InvalidOperationException("No matching book found");
+
+            bookCopy = new BookCopy { BookID = bookId };
+
+            _context.BookCopies.Add(bookCopy);
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return bookCopy;
         }
 
         public IEnumerable<Book> FindBooks(BookFilter filter)
