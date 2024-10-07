@@ -31,7 +31,7 @@ namespace EdtTest.ServiceImplementations.Services
             return book;
         }
 
-        public BookCopy CreateBookCopy(int bookID)
+        public BookCopy CreateBookCopy(int bookId)
         {
             throw new NotImplementedException();
         }

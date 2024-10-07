@@ -30,6 +30,6 @@ namespace EdtTest.Services
         /// <returns>The newly created book</returns>
         /// <exception cref="Exception">Thrown when saving the new entity fails.</exception>
         Book CreateBook(string title, string authors, string description, bool addCopy);
-        BookCopy CreateBookCopy(int bookID);
+        BookCopy CreateBookCopy(int bookId);
     }
 }
