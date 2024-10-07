@@ -22,6 +22,7 @@ namespace EdtTest.ServiceImplementations
             });
 
             services.AddTransient<IBooksService, BooksService>();
+            services.AddTransient<IMembersService, MembersService>();
         }
     }
 }
