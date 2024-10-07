@@ -31,7 +31,7 @@ namespace EdtTest.ServiceImplementations.Services
                 throw;
             }
 
-            return _context.Members.Find(member.ID)!;
+            return member;
         }
 
         public IEnumerable<LibraryMember> FindMembers(MemberFilter filter)
