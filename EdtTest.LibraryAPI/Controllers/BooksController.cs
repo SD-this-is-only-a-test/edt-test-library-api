@@ -17,19 +17,19 @@ namespace EdtTest.LibraryAPI.Controllers
         [HttpGet]
         public ApiResponse<IEnumerable<Book>> GetBooks()
         {
-            var indexResult = new ApiResponse<IEnumerable<Book>>();
+            var getBooksResult = new ApiResponse<IEnumerable<Book>>();
 
             try
             {
-                indexResult.Data = _booksService.GetBooks();
+                getBooksResult.Data = _booksService.GetBooks();
             }
             catch (Exception serviceError)
             {
                 _logger.LogError(serviceError, "{controller} method {method} failed", nameof(BooksController), nameof(GetBooks));
-                indexResult.Errors = [ "Failed to get books", serviceError.Message ];
+                getBooksResult.Errors = [ "Failed to get books", serviceError.Message ];
             }
 
-            return indexResult;
+            return getBooksResult;
         }
 
         [HttpPost]
