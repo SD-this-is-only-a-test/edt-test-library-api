@@ -33,18 +33,32 @@ namespace EdtTest.ServiceImplementations.Services
 
         public IEnumerable<Book> FindBooks(BookFilter filter)
         {
-            return _context.Books.Where(b => 
-                !filter.AvailableForLoanOnly || 
-                (
-                    b.Copies.Count > 0 &&
-                    b.Copies.All(c => c.Loans.Count == 0 || c.Loans.All(l => l.ReturnedDate != null && l.ReturnedDate <= DateTime.Now))
-                )
-            );
+            try
+            {
+                return _context.Books.Where(b =>
+                    !filter.AvailableForLoanOnly ||
+                    (
+                        b.Copies.Count > 0 &&
+                        b.Copies.All(c => c.Loans.Count == 0 || c.Loans.All(l => l.ReturnedDate != null && l.ReturnedDate <= DateTime.Now))
+                    )
+                );
+            }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<Book> GetBooks()
         {
-            return _context.Books.OrderBy(b => b.Title).ThenBy(b => b.Authors);
+            try
+            {
+                return _context.Books.OrderBy(b => b.Title).ThenBy(b => b.Authors);
+            }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
         }
     }
 }
