@@ -2,6 +2,7 @@
 using EdtTest.Data;
 using EdtTest.Services;
 using EdtTest.Data.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdtTest.ServiceImplementations.Services
 {
@@ -18,7 +19,14 @@ namespace EdtTest.ServiceImplementations.Services
 
             _context.Books.Add(book);
 
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
 
             return book;
         }
