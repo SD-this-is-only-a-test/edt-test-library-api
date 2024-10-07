@@ -12,6 +12,8 @@ namespace EdtTest.Services
         /// <param name="libraryMemberId">The ID of the member loaning the book copy.</param>
         /// <returns>A newly created book loan.</returns>
         /// <exception cref="Exception">Thrown when saving the new entity fails.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when query execution fails or the book is already on loan.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when query execution fails.</exception>
         BookLoan StartLoan(int bookCopyId, int libraryMemberId);
 
         /// <summary>
@@ -27,6 +29,7 @@ namespace EdtTest.Services
         /// </summary>
         /// <param name="filter">The filter to apply to results.</param>
         /// <returns>A collection of loans mathcing the specified criteria.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when query execution fails.</exception>
         /// <exception cref="ArgumentNullException">Thrown when query execution fails.</exception>
         IEnumerable<BookLoan> FindBookLoans(BookLoanFilter filter);
     }
