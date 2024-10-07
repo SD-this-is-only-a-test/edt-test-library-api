@@ -21,6 +21,7 @@ namespace EdtTest.ServiceImplementations
                 options.UseSqlServer(configuration.GetConnectionString("LibraryContextConnection"));
             });
 
+            services.AddTransient<IBookLoansService, BookLoansService>();
             services.AddTransient<IBooksService, BooksService>();
             services.AddTransient<IMembersService, MembersService>();
         }
